@@ -94,7 +94,6 @@ process_material = SubResource("ParticleProcessMaterial_hxn1d")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00146985, 0, -0.00398266)
-emitting = false
 amount = 100
 lifetime = 1.4
 one_shot = true

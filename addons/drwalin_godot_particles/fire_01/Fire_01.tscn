@@ -48,6 +48,7 @@ speed_scale = 0.9
 explosiveness = 0.05
 randomness = 0.15
 fixed_fps = 60
+draw_order = 3
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_uteho")
 draw_pass_1 = SubResource("QuadMesh_ibswi")

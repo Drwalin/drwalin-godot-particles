@@ -7,36 +7,15 @@ render_mode ambient_light_disabled;
 render_mode fog_disabled;
 render_mode blend_add;
 
-uniform sampler3D noise3d : filter_linear_mipmap;
+#include "res://addons/drwalin_godot_particles/ShaderUtils.gdshaderinc"
 
+uniform sampler3D noise3d : filter_linear_mipmap;
 uniform vec3 lowColor : source_color = vec3(1, 0.6, 0.1);
 uniform vec3 hiColor : source_color = vec3(1, 0.2, 0.05);
-
 uniform float timeScale = 1;
 
-varying flat vec4 instanceCustom;
-varying float initialSize;
-
-#define ROTATION_IN_RADIANS instanceCustom.x
-#define LIFE_TIME instanceCustom.y
-#define ANIMATION_FRAME instanceCustom.x
-
-
-uint RandUI(int _id, uint _var)
-{
-	uint a = (uint(_id) ^ uint(2166136261)) * uint(16777619);
-	return (a ^ _var) * uint(16777619);
-}
-
-float RandF(int _id, uint _var)
-{
-	return float(RandUI(_id, _var) % uint(16777619)) / float(16777619-1);
-}
-
-vec3 RandV(int _id, uint _var)
-{
-	return vec3(RandF(_id, _var), RandF(_id, _var+uint(1)), RandF(_id, _var+uint(2)));
-}
+varying flat vec4 particleInstanceCustom;
+#define LIFE_TIME particleInstanceCustom.y
 
 varying vec3 instancePos;
 varying vec3 _X;
@@ -46,25 +25,18 @@ varying float alphaLifeTime;
 
 void vertex()
 {
-	instanceCustom = INSTANCE_CUSTOM;
+	particleInstanceCustom = INSTANCE_CUSTOM;
 	const int v_id = INSTANCE_ID;
 	
-	initialSize = RandF(v_id, 10)*0.2;
-	
 	instancePos = (MODEL_MATRIX * vec4(0,0,0,1)).xyz;
-	
-	uint offset = uint(1001);
+	uint of = uint(1001);
 	
 	do {
-		_X = normalize(RandV(v_id, offset));
-		_Y = normalize(RandV(v_id, offset + uint(3)));
-		offset += uint(6);
-	} while(abs(dot(_X, _Y)) > 0.9);
-	
+		_X = normalize(RandV(v_id, of+=uint(3)));
+		_Y = normalize(RandV(v_id, of+=uint(3)));
+	} while(abs(dot(_X, _Y)) > 0.95);
 	_Z = normalize(cross(_X, _Y));
 	_Y = cross(_X, _Z);
-	
-	
 	
 	vec2 uv = UV - 0.5;
 	float c = RandF(v_id, 112)*2.0 - 1.0;
@@ -90,9 +62,8 @@ void fragment()
 	float m = dot(g, g);
 	float centric = - m*m;
 	
-	ALPHA = clamp(centric + al - alphaLifeTime, 0, 1);
-	
-	ALBEDO = mix(hiColor, lowColor, ALPHA);
-	
-	EMISSION = ALBEDO * 0.1;
+	float alpha = clamp(centric + al - alphaLifeTime, 0, 1);
+	ALPHA = alpha;
+	ALBEDO = mix(hiColor, lowColor, alpha);
+	EMISSION = hiColor * 0.1;
 }

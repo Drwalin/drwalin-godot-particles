@@ -1,0 +1,13 @@
+[gd_resource type="NoiseTexture3D" load_steps=3 format=3 uid="uid://cabb2104wmhu8"]
+
+[sub_resource type="Gradient" id="Gradient_5ci53"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o8yq3"]
+seed = 18
+frequency = 0.036
+
+[resource]
+seamless = true
+seamless_blend_skirt = 0.431
+color_ramp = SubResource("Gradient_5ci53")
+noise = SubResource("FastNoiseLite_o8yq3")

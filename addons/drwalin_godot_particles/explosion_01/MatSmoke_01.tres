@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://y0oetmvgcrd1"]
+
+[ext_resource type="Shader" path="res://addons/drwalin_godot_particles/explosion_01/Smoke_01.gdshader" id="1_va2k8"]
+[ext_resource type="Texture2D" uid="uid://c80unb5xnd70c" path="res://addons/kenney_particle_pack/circle_05.png" id="2_3liov"]
+[ext_resource type="NoiseTexture3D" uid="uid://cxjt0d2c4ok4a" path="res://addons/drwalin_godot_particles/noise/tex_noise3d_1.tres" id="3_6311t"]
+[ext_resource type="NoiseTexture3D" uid="uid://cali42nt2762c" path="res://addons/drwalin_godot_particles/noise/tex_noise3d_2.tres" id="4_22dgg"]
+[ext_resource type="NoiseTexture3D" uid="uid://cabb2104wmhu8" path="res://addons/drwalin_godot_particles/noise/tex_noise3d_3.tres" id="5_t7sy1"]
+
+[resource]
+render_priority = -1
+shader = ExtResource("1_va2k8")
+shader_parameter/vel1 = Vector3(1, 1, 0)
+shader_parameter/vel2 = Vector3(0, -1, -1)
+shader_parameter/lowColor = Color(0.188235, 0.176471, 0.168627, 1)
+shader_parameter/hiColor = Color(0.180392, 0.180392, 0.180392, 1)
+shader_parameter/timeScale = 1.0
+shader_parameter/noise3d = ExtResource("3_6311t")
+shader_parameter/noise3d_2 = ExtResource("4_22dgg")
+shader_parameter/noise3d_3 = ExtResource("5_t7sy1")
+shader_parameter/mask = ExtResource("2_3liov")

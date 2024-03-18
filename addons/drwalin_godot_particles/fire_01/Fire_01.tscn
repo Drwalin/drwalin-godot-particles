@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://8eh6ec7n2gp5"]
+
+[ext_resource type="Material" uid="uid://hhkeyghvt8km" path="res://addons/drwalin_godot_particles/fire_01/MatFire_01.tres" id="1_1rpj4"]
+
+[sub_resource type="Curve" id="Curve_42y8j"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.721519, 0.747253), -1.42216, -1.42216, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3ym41"]
+curve = SubResource("Curve_42y8j")
+
+[sub_resource type="Gradient" id="Gradient_hi70d"]
+offsets = PackedFloat32Array(0, 0.669856, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.180005, 0.180005, 0.180005, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nhxgv"]
+gradient = SubResource("Gradient_hi70d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uteho"]
+lifetime_randomness = 0.22
+emission_shape = 1
+emission_sphere_radius = 0.15
+inherit_velocity_ratio = 0.05
+direction = Vector3(0, 1, 0)
+spread = 19.091
+initial_velocity_max = 1.0
+gravity = Vector3(0, 2, 0)
+linear_accel_max = 0.8
+tangential_accel_max = 1.05
+damping_max = 0.71
+color_ramp = SubResource("GradientTexture1D_nhxgv")
+alpha_curve = SubResource("CurveTexture_3ym41")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+turbulence_enabled = true
+turbulence_noise_strength = 0.2
+turbulence_noise_speed_random = 4.0
+turbulence_influence_min = 0.02
+turbulence_influence_max = 0.05
+
+[sub_resource type="QuadMesh" id="QuadMesh_ibswi"]
+material = ExtResource("1_1rpj4")
+
+[node name="Fire_01" type="GPUParticles3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258554, 0, 0.528904)
+amount = 30
+lifetime = 0.7
+speed_scale = 0.9
+explosiveness = 0.05
+randomness = 0.15
+fixed_fps = 60
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_uteho")
+draw_pass_1 = SubResource("QuadMesh_ibswi")

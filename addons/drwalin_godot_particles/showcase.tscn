@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgebwajy07yx7"]
+
+[ext_resource type="PackedScene" uid="uid://8eh6ec7n2gp5" path="res://addons/drwalin_godot_particles/fire_01/Fire_01.tscn" id="1_r4idn"]
+
+[node name="Showcase" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.890173, 0.455623, 0, -0.455623, 0.890173, 0, 3.96148, 7.63737)
+
+[node name="Fire1" parent="." instance=ExtResource("1_r4idn")]

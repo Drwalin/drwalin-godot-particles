@@ -50,7 +50,7 @@ void vertex()
 
 float GetTex3d(sampler3D tex, float posScale, float tScale, vec2 uv)
 {
-	vec3 p = (instancePos + (_X*uv.y) + (_Y*uv.x) + (_Z*(LIFE_TIME*tScale))) * posScale;
+	vec3 p = (instancePos + (_X*uv.x) + (_Y*uv.y) + (_Z*(LIFE_TIME*tScale))) * posScale;
 	return texture(tex, p).x;
 }
 

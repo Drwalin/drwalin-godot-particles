@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://hhkeyghvt8km"]
+
+[ext_resource type="Shader" path="res://addons/drwalin_godot_particles/fire_01/Fire_01.gdshader" id="1_tol5f"]
+[ext_resource type="Texture2D" uid="uid://c80unb5xnd70c" path="res://addons/kenney_particle_pack/circle_05.png" id="2_r3evq"]
+[ext_resource type="NoiseTexture3D" uid="uid://cxjt0d2c4ok4a" path="res://addons/drwalin_godot_particles/noise/tex_noise3d_1.tres" id="3_1f8ns"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_tol5f")
+shader_parameter/vel1 = Vector3(1, 1, 0)
+shader_parameter/vel2 = Vector3(0, -1, -1)
+shader_parameter/lowColor = Color(1, 0.6, 0.1, 1)
+shader_parameter/hiColor = Color(1, 0.2, 0.05, 1)
+shader_parameter/timeScale = 1.0
+shader_parameter/noise3d = ExtResource("3_1f8ns")
+shader_parameter/mask = ExtResource("2_r3evq")

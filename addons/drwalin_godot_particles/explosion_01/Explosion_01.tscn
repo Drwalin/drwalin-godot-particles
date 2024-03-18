@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=3 uid="uid://cx8v1ih6qd7ss"]
+
+[ext_resource type="Material" uid="uid://y0oetmvgcrd1" path="res://addons/drwalin_godot_particles/explosion_01/MatSmoke_01.tres" id="1_bf8y7"]
+[ext_resource type="Material" uid="uid://hhkeyghvt8km" path="res://addons/drwalin_godot_particles/fire_01/MatFire_01.tres" id="1_y8v2j"]
+
+[sub_resource type="Curve" id="Curve_42y8j"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.721519, 0.747253), -1.42216, -1.42216, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_3ym41"]
+curve = SubResource("Curve_42y8j")
+
+[sub_resource type="Gradient" id="Gradient_hi70d"]
+offsets = PackedFloat32Array(0, 0.669856, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.180005, 0.180005, 0.180005, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_nhxgv"]
+gradient = SubResource("Gradient_hi70d")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dtfyh"]
+lifetime_randomness = 0.22
+emission_shape = 1
+emission_sphere_radius = 0.3
+inherit_velocity_ratio = 0.05
+direction = Vector3(0, 1, 0)
+spread = 118.918
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 6, 0)
+linear_accel_max = 0.8
+radial_accel_min = -0.3
+tangential_accel_min = 2.0
+tangential_accel_max = 8.0
+damping_min = 3.0
+damping_max = 5.0
+color_ramp = SubResource("GradientTexture1D_nhxgv")
+alpha_curve = SubResource("CurveTexture_3ym41")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+turbulence_noise_strength = 0.2
+turbulence_noise_speed_random = 0.05
+
+[sub_resource type="QuadMesh" id="QuadMesh_sc6tg"]
+material = ExtResource("1_y8v2j")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_r0qdu"]
+lifetime_randomness = 0.22
+emission_shape = 1
+emission_sphere_radius = 0.15
+inherit_velocity_ratio = 0.05
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 4, 0)
+linear_accel_max = 0.8
+tangential_accel_max = 1.05
+damping_max = 1.5
+color_ramp = SubResource("GradientTexture1D_nhxgv")
+alpha_curve = SubResource("CurveTexture_3ym41")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+turbulence_noise_strength = 0.2
+turbulence_noise_speed_random = 4.0
+turbulence_influence_min = 0.02
+turbulence_influence_max = 0.05
+
+[sub_resource type="QuadMesh" id="QuadMesh_yrm82"]
+material = ExtResource("1_bf8y7")
+
+[node name="Explosion" type="Node3D"]
+
+[node name="Fire" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00146985, 0, -0.00398266)
+emitting = false
+amount = 150
+lifetime = 0.7
+one_shot = true
+speed_scale = 0.9
+explosiveness = 0.89
+randomness = 0.84
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_dtfyh")
+draw_pass_1 = SubResource("QuadMesh_sc6tg")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00146985, 0, -0.00398266)
+emitting = false
+amount = 100
+one_shot = true
+speed_scale = 0.9
+explosiveness = 0.89
+randomness = 0.84
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_r0qdu")
+draw_pass_1 = SubResource("QuadMesh_yrm82")

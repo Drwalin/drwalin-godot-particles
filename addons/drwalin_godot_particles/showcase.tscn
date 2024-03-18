@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgebwajy07yx7"]
+[gd_scene load_steps=3 format=3 uid="uid://dgebwajy07yx7"]
 
 [ext_resource type="PackedScene" uid="uid://8eh6ec7n2gp5" path="res://addons/drwalin_godot_particles/fire_01/Fire_01.tscn" id="1_r4idn"]
+[ext_resource type="PackedScene" uid="uid://cx8v1ih6qd7ss" path="res://addons/drwalin_godot_particles/explosion_01/Explosion_01.tscn" id="2_kyrm1"]
 
 [node name="Showcase" type="Node3D"]
 
@@ -8,3 +9,6 @@
 transform = Transform3D(1, 0, 0, 0, 0.890173, 0.455623, 0, -0.455623, 0.890173, 0, 3.96148, 7.63737)
 
 [node name="Fire1" parent="." instance=ExtResource("1_r4idn")]
+
+[node name="Explosion" parent="." instance=ExtResource("2_kyrm1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)

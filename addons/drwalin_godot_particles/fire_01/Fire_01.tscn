@@ -42,7 +42,6 @@ turbulence_influence_max = 0.05
 material = ExtResource("1_1rpj4")
 
 [node name="Fire_01" type="GPUParticles3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258554, 0, 0.528904)
 amount = 30
 lifetime = 0.7
 speed_scale = 0.9

@@ -2,13 +2,12 @@ shader_type spatial;
 
 render_mode unshaded;
 render_mode cull_disabled;
+render_mode shadows_disabled;
+render_mode ambient_light_disabled;
+render_mode fog_disabled;
 render_mode blend_add;
 
-uniform sampler3D noise3d;
-uniform sampler2D mask;
-
-uniform vec3 vel1 = vec3(1, 1, 0);
-uniform vec3 vel2 = vec3(0, -1, -1);
+uniform sampler3D noise3d : filter_linear_mipmap;
 
 uniform vec3 lowColor : source_color = vec3(1, 0.6, 0.1);
 uniform vec3 hiColor : source_color = vec3(1, 0.2, 0.05);

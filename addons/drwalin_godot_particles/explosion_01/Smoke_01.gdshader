@@ -2,15 +2,11 @@ shader_type spatial;
 
 render_mode unshaded;
 render_mode cull_disabled;
+render_mode shadows_disabled;
+render_mode ambient_light_disabled;
 render_mode blend_mix;
 
-uniform sampler3D noise3d;
-uniform sampler3D noise3d_2;
-uniform sampler3D noise3d_3;
-uniform sampler2D mask;
-
-uniform vec3 vel1 = vec3(1, 1, 0);
-uniform vec3 vel2 = vec3(0, -1, -1);
+uniform sampler3D noise3d : filter_linear_mipmap;
 
 uniform vec3 lowColor : source_color = vec3(1, 0.6, 0.1);
 uniform vec3 hiColor : source_color = vec3(1, 0.2, 0.05);
@@ -87,14 +83,20 @@ float GetTex3d(sampler3D tex, float posScale, float tScale, vec2 uv)
 
 void fragment()
 {
-	float n = GetTex3d(noise3d, 4, 0.3, UV)*1.5;
-	float al = GetTex3d(noise3d_3, 2.0, timeScale*0.15, UV);
+	float al = GetTex3d(noise3d, 2.0, timeScale*0.15, UV);
 	
-	vec2 g = (vec2(0.5,0.5)-UV)*2.0;
+	vec2 g = (vec2(0.5,0.5)-UV)*3.0;
 	float m = dot(g, g);
 	float centric = - m*m;
 	
-	ALBEDO = mix(lowColor, hiColor, n);
+	float diff = 0.0;
+	if (LIFE_TIME < 0.3) {
+		diff = -(0.5-LIFE_TIME)*(0.5-LIFE_TIME)*3.0;
+	}
 	
-	ALPHA = centric + 0.3 + al - alphaLifeTime;
+	ALPHA = clamp(centric - 0.0 + al - alphaLifeTime + diff, 0, 1);
+	
+	ALBEDO = mix(lowColor, hiColor, ALPHA) * 0.5;
+	
+	//ALPHA = pow(ALPHA, 0.8);
 }

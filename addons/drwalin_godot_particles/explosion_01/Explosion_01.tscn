@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://cx8v1ih6qd7ss"]
+[gd_scene load_steps=28 format=3 uid="uid://cx8v1ih6qd7ss"]
 
 [ext_resource type="PackedScene" uid="uid://8eh6ec7n2gp5" path="res://addons/drwalin_godot_particles/fire_01/Fire_01.tscn" id="1_44eg6"]
 [ext_resource type="Material" uid="uid://y0oetmvgcrd1" path="res://addons/drwalin_godot_particles/explosion_01/MatSmoke_01.tres" id="1_bf8y7"]
 [ext_resource type="Script" path="res://addons/drwalin_godot_particles/explosion_01/Explosion_01.gd" id="1_nd315"]
+[ext_resource type="PackedScene" uid="uid://bimhf5235sweq" path="res://addons/drwalin_godot_particles/sparks_01/Sparks_01.tscn" id="4_sr3yn"]
+[ext_resource type="Texture2D" uid="uid://c80unb5xnd70c" path="res://addons/kenney_particle_pack/circle_05.png" id="5_6ci2c"]
 
 [sub_resource type="Curve" id="Curve_42y8j"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.721519, 0.747253), -1.42216, -1.42216, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -39,6 +41,7 @@ color_ramp = SubResource("GradientTexture1D_nhxgv")
 alpha_curve = SubResource("CurveTexture_3ym41")
 hue_variation_min = -0.1
 hue_variation_max = 0.1
+turbulence_enabled = true
 turbulence_noise_strength = 0.2
 turbulence_noise_speed_random = 4.0
 turbulence_influence_min = 0.02
@@ -81,6 +84,72 @@ turbulence_influence_max = 0.05
 [sub_resource type="QuadMesh" id="QuadMesh_yrm82"]
 material = ExtResource("1_bf8y7")
 
+[sub_resource type="Curve" id="Curve_0q1q7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.782609, 0.596316), -1.70567, -1.70567, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_4gubj"]
+curve = SubResource("Curve_0q1q7")
+
+[sub_resource type="Curve" id="Curve_5nu42"]
+_data = [Vector2(0.0271739, 0.384211), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7rr06"]
+curve = SubResource("Curve_5nu42")
+
+[sub_resource type="Curve" id="Curve_c55hc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_j40ia"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.849474), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_da8yb"]
+max_value = 3.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ccgra"]
+curve_x = SubResource("Curve_c55hc")
+curve_y = SubResource("Curve_j40ia")
+curve_z = SubResource("Curve_da8yb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eht53"]
+lifetime_randomness = 0.34
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 94.091
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, 5, 0)
+linear_accel_min = 1.0
+linear_accel_max = 2.0
+scale_over_velocity_min = 0.05
+scale_over_velocity_max = 0.5
+scale_over_velocity_curve = SubResource("CurveXYZTexture_ccgra")
+alpha_curve = SubResource("CurveTexture_4gubj")
+emission_curve = SubResource("CurveTexture_7rr06")
+turbulence_enabled = true
+turbulence_noise_scale = 0.5
+turbulence_noise_speed_random = 0.8
+turbulence_influence_min = 0.03
+turbulence_influence_max = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_02muu"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(5, 1, 0.2, 1)
+albedo_texture = ExtResource("5_6ci2c")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xd4os"]
+material = SubResource("StandardMaterial3D_02muu")
+size = Vector2(0.1, 0.3)
+
 [node name="Explosion" type="Node3D"]
 script = ExtResource("1_nd315")
 
@@ -94,6 +163,7 @@ process_material = SubResource("ParticleProcessMaterial_hxn1d")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00146985, 0, -0.00398266)
+emitting = false
 amount = 100
 lifetime = 1.4
 one_shot = true
@@ -103,3 +173,13 @@ randomness = 0.84
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_r0qdu")
 draw_pass_1 = SubResource("QuadMesh_yrm82")
+
+[node name="Sparks" parent="." instance=ExtResource("4_sr3yn")]
+emitting = false
+amount = 100
+lifetime = 1.2
+one_shot = true
+explosiveness = 0.87
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_eht53")
+draw_pass_1 = SubResource("QuadMesh_xd4os")

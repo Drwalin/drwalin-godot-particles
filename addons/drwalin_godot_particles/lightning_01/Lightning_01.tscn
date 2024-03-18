@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://cwcn4eceuao4x"]
+
+[ext_resource type="Texture2D" uid="uid://dit1366rfq5c3" path="res://addons/kenney_particle_pack/spark_06.png" id="2_byub2"]
+[ext_resource type="Shader" path="res://addons/drwalin_godot_particles/lightning_01/Render_Lightning_01.gdshader" id="2_d8mcv"]
+[ext_resource type="NoiseTexture3D" uid="uid://cxjt0d2c4ok4a" path="res://addons/drwalin_godot_particles/noise/tex_noise3d_1.tres" id="3_g3puu"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ssth6"]
+lifetime_randomness = 1.0
+direction = Vector3(0, 0, 0)
+gravity = Vector3(0, 0, 0)
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4s3jo"]
+render_priority = 0
+shader = ExtResource("2_d8mcv")
+shader_parameter/color = Color(1.2, 0.2, 2, 1)
+shader_parameter/maxAmplitude = 4.0
+shader_parameter/maxRange = 10.0
+shader_parameter/sparkTex = ExtResource("2_byub2")
+shader_parameter/whiteNoise3d = ExtResource("3_g3puu")
+
+[sub_resource type="QuadMesh" id="QuadMesh_8wmos"]
+material = SubResource("ShaderMaterial_4s3jo")
+size = Vector2(2, 1)
+subdivide_depth = 30
+center_offset = Vector3(0, 0.5, 0)
+
+[node name="Lightning01" type="GPUParticles3D"]
+amount = 16
+lifetime = 0.63
+explosiveness = 0.21
+randomness = 1.0
+visibility_aabb = AABB(-4, -4, -4, 8, 40, 8)
+process_material = SubResource("ParticleProcessMaterial_ssth6")
+draw_pass_1 = SubResource("QuadMesh_8wmos")

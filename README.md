@@ -1,6 +1,6 @@
 # Drwalin's Godot Particles
 
-Assets are made for Godot 4.2
+Assets are made for Godot 4.4
 
 ## Acknowledgements
 
@@ -9,6 +9,6 @@ https://github.com/Calinou/kenney-particle-pack
 
 ## License
 
-Copyright ©️ 2024 Marek Zalewski aka Drwalin
+Copyright (C) 2024-2025 Marek Zalewski aka Drwalin
 
 Licensed under MIT - check LICENSE for more information.

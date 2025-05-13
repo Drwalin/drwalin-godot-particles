@@ -26,7 +26,7 @@ varying float alphaLifeTime;
 void vertex()
 {
 	particleInstanceCustom = INSTANCE_CUSTOM;
-	const int v_id = INSTANCE_ID;
+	int v_id = INSTANCE_ID;
 
 	instancePos = (MODEL_MATRIX * vec4(0,0,0,1)).xyz;
 	uint of = uint(1001);
